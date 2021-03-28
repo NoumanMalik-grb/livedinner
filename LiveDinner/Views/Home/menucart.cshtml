@@ -1,0 +1,155 @@
+﻿@using LiveDinner.Models
+
+@{
+    int row = 0;
+    int totalquantity = 0;
+    decimal totalbill = 0;
+
+    ViewBag.Title = "menucart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start All Pages -->
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Shoping Cart</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start Menu -->
+<br />
+<!--================Cart Area =================-->
+<section class="cart_area section_padding">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl ">
+                <div>
+                    <table class="table table-bordered" style="background-color:cadetblue; width:100%">
+                        <thead class="table-primary">
+                            <tr style="background-color:darkred; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color:white; text-align:center">
+                                <th scope="col" style="width:5%;">Product Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Session["menucart"] != null)
+                            {
+                                foreach (var item in (List<Product>)Session["menucart"])
+                                {
+                                    <tr style="color:white; text-align:center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                                        <td>
+                                            <div class="media">
+                                                <div class="d-flex">
+                                                    <img src="@Url.Content(item.Product_Picture)" style="height:100px; width:150px" />
+                                                </div>
+                                                <div class="media-body">
+                                                    <p>@item.Product_Name</p>
+                                                </div>
+                                            </div>
+                                            <h5>Available :<b>@item.Order_Details.Sum(x => x.OD_Quantity)</b></h5>
+                                        </td>
+                                        <td>
+                                            <h5>@item.Product_Sale_Price</h5>
+                                        </td>
+                                        <td>
+                                            <div class="product_count">
+                                                <a href="@Url.Action("Plus","Home", new { RowNo=row})" class=" btn-danger fa fa-plus btn-sm"></a>
+                                                <b>@item.Product_Quantity</b>
+                                                <a href="@Url.Action("Minus","Home", new { RowNo=row})" class=" btn-danger  fa fa-minus btn-sm"></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5>@(decimal.Parse(item.Product_Sale_Price.ToString())*int.Parse(item.Product_Quantity.ToString()))</h5>
+                                        </td>
+                                        <td class="fa-remove">
+                                            <a href="@Url.Action("Remove","Home", new { RowNo=row})">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    row++;
+                                    totalquantity += item.Product_Quantity;
+                                    totalbill += (decimal.Parse(item.Product_Sale_Price.ToString()) * int.Parse(item.Product_Quantity.ToString()));
+                                }
+                            }
+
+                            @if (Session["menucart"] == null || row == 0)
+                            {
+                                <tr>
+                                    <td colspan="6" align="center"><b>your shoping cart isa empty<a href="@Url.Action("Menu","Home")">Click here for buy now</a></b></td>
+                                </tr>
+                            }
+
+                            <tr style="background-color:brown; text-align:center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color:white">
+                                <td></td>
+                                <td></td>
+                                <td>@totalquantity</td>
+                                <td>@totalbill</td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="checkout_btn_inner float-right">
+                        <a href="@Url.Action("Menu","Home")" style=" background-color: brown; border: none; color: white; padding: 10px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Continue Shopping</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Cart Area =================-->
+<div class="container-fluid">
+    <div class=" table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+        <center>
+
+            <table class=" table table-bordered " style="width:50%; background-color:cadetblue; font-size:15px; text-align:center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: white">
+                <thead>
+                    <tr>
+                        <td colspan="4" style="background-color:darkred">Order Details</td>
+                       
+                    </tr>
+                    <tr>
+                        <td>Sub Total:</td>
+                        <td>@totalbill</td>
+                        <td>Discount:</td>
+                        <td>Rs: 0</td>
+                    </tr>
+                    <tr>
+                        <td>Tax:</td>
+                        <td>Rs: 0</td>
+                        <td>Shiping Shiping Cost:</td>
+                        <td>Rs: 0</td>
+                    </tr>
+                    <tr>
+                        <td>Fast Shiping</td>
+                        <td>Rs: 0</td>
+                        <td>Grand Total</td>
+                        <td>
+                            @totalbill
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+            @if (Session["menucart"] != null)
+            {
+                <div>
+                    <a href="@Url.Action("Customer","Home")" style=" background-color: brown; border: none; color: white; padding: 10px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Order Confirm</a>
+                </div>
+            }
+        </center>
+         </div>
+</div>
+
+
+<script>
+    window.onload = function () {
+        window.scrollBy(0, 200)
+    }
+</script>

@@ -1,0 +1,75 @@
+﻿@model LiveDinner.Models.Classproducts
+@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+<!-- Start All Pages -->
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Special Menu</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start Menu -->
+<div class="menu-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-title text-center">
+                    <h2>Special Menu</h2>
+                    <p>It's dinner time! Discover dinner recipes in almost every category imaginable.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row inner-menu-box">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="@Url.Action("Menu","Home")" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
+                    @foreach (var item in Model.cat)
+                    {
+                        <a class="nav-link"  href="@Url.Action("Menu","Home", new { id=item.Category_Id})" role="tab" aria-controls="v-pills-profile" aria-selected="false">@item.Category_Name</a>
+                    }
+
+
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div class="row">
+                            @foreach (var item in Model.pro)
+                            {
+                            <div class="col-lg-4 col-md-6 special-grid dinner">
+                               
+                                <div class="gallery-single fix">
+                                    <img src="@Url.Content(item.Product_Picture)" style="height: 150px; width:300px" class="img-fluid" alt="Image">
+                                    <div class="why-text">
+                                        <h4>@item.Product_Name</h4>
+                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title=""><i class="fas fa-eye"></i></a></li>
+                                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                                        <h5> Rs: @item.Product_Sale_Price</h5>
+                                        
+                                    </div>
+
+                                    <a href="@Url.Action("AddtoCard","Home", new { id=item.Product_Id})">
+                                        <h4 style="float:right;" class="btn btn-outline-danger">Add To Card</h4>
+                                    </a>
+
+                                </div>
+                            </div>
+                                
+                            }
+                        </div>              
+            </div>
+        </div>           
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Menu -->

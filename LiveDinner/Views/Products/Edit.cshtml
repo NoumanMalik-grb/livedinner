@@ -1,0 +1,75 @@
+﻿@model LiveDinner.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+<div class="container-fluid" style="margin-left:1%; margin-right:10%; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color:white">
+
+    @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="col-lg-9">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Product_Id)
+
+            <div class="row">
+                <div class="col-lg-7" style="background-color:cadetblue">
+                    <h4>Product Name</h4>
+                    <p>
+                        @Html.EditorFor(model => model.Product_Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product_Name, "", new { @class = "text-danger" })
+                    </p>
+                    <h4>
+                        Product Picture
+                    </h4>
+                    <p>
+                        @Html.EditorFor(model => model.Product_Picture, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product_Picture, "", new { @class = "text-danger" })
+                    </p>
+                    <h4>
+                        Purchase price
+                    </h4>
+                    <p>
+                        @Html.EditorFor(model => model.Product_Purchase_price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product_Purchase_price, "", new { @class = "text-danger" })
+                    </p>
+                    <h4>
+                        Sale Price
+                    </h4>
+                    <p>
+                        @Html.EditorFor(model => model.Product_Sale_Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product_Sale_Price, "", new { @class = "text-danger" })
+                    </p>
+                    <h4>
+                        Product Description
+                    </h4>
+                    <p>
+                        @Html.EditorFor(model => model.Product_Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product_Description, "", new { @class = "text-danger" })
+                    </p>
+                    <h4>
+                        Product Status
+                    </h4>
+                    <p>
+                        @Html.EditorFor(model => model.Product_Status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Product_Status, "", new { @class = "text-danger" })
+                    </p>
+                    <h4>
+                        Sub Category Fid
+                    </h4>
+                    <p>
+                        @Html.DropDownList("Sub_Category_Fid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Sub_Category_Fid, "", new { @class = "text-danger" })
+                    </p>
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a href="@Url.Action("Index", "Products")" class="btn btn-success">Back</a>
+                </div>
+            </div>
+            </div>
+    }
+    </div>
+
+          

@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start All Pages -->
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Login</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/Content/loginform/css/style.css">
+
+</head>
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap py-5">
+                        <div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/bg.jpg);"></div>
+                        <h3 class="text-center mb-0">Welcome</h3>
+                        <p class="text-center">Sign in by entering the information below</p>
+                        @using (Html.BeginForm("AdminLogin", "Home", FormMethod.Post)) { 
+                    
+                        <div class="form-group">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
+                            <input type="text" name="Account_Email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-lock"></span></div>
+                            <input type="password" name="Account_Password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group d-md-flex">
+                            <div class="w-100 text-md-right">
+                                <a href="#">Forgot Password</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn form-control btn-primary rounded submit px-3">Get Started</button>
+                        </div>
+                        }
+                   
+                        <div class="w-100 text-center mt-4 text">
+                            <p class="mb-0">Don't have an account?</p>
+                            <a href="@Url.Action("signUp","Home")">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Content/loginform/js/jquery.min.js"></script>
+    <script src="~/Content/loginform/js/popper.js"></script>
+    <script src="~/Content/loginform/js/bootstrap.min.js"></script>
+    <script src="~/Content/loginform/js/main.js"></script>
+
+</body>
+</html>
+
+
+

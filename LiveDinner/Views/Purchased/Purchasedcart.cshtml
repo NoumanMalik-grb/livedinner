@@ -1,0 +1,127 @@
+﻿@using LiveDinner.Models
+
+@{
+    int row = 0;
+    int totalquantity = 0;
+    decimal totalbill = 0;
+
+    ViewBag.Title = "Purchasedcart";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml"; 
+}
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+<!-- Start All Pages -->
+<h1>Purchased cart</h1>
+<!-- Start Menu -->
+<br />
+<!--================Cart Area =================-->
+<div style="background-color:cadetblue">
+    <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+        <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+            <table class="col-8 table table-bordered" style="background-color:cadetblue">
+                <thead class="table-primary">
+                    <tr style="background-color:darkred; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color:white; text-align:center">
+                        <th scope="col" style="width:5%;">Product Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Session["menucart"] != null)
+                    {
+                        foreach (var item in (List<Product>)Session["menucart"])
+                        {
+                            <tr style="color:white; text-align:center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="@Url.Content(item.Product_Picture)" style="height:100px; width:150px" />
+                                        </div>
+                                        <div class="media-body">
+                                            <p>@item.Product_Name</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>@item.Product_Purchase_price</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <a href="@Url.Action("Plus","Purchased", new { RowNo=row})" class=" btn-danger fa fa-plus btn-sm"></a>
+                                        <b>@item.Product_Quantity</b>
+                                        <a href="@Url.Action("Minus","Purchased", new { RowNo=row})" class=" btn-danger  fa fa-minus btn-sm"></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>@(decimal.Parse(item.Product_Purchase_price.ToString())*int.Parse(item.Product_Quantity.ToString()))</h5>
+                                </td>
+                                <td class="fa-remove">
+                                    <a href="@Url.Action("Remove","Purchased", new { RowNo=row})">
+                                        <span class="glyphicon glyphicon-trash" style="color:brown"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            row++;
+                            totalquantity += item.Product_Quantity;
+                            totalbill += (decimal.Parse(item.Product_Purchase_price.ToString()) * int.Parse(item.Product_Quantity.ToString()));
+                        }
+                    }
+
+                    @if (Session["menucart"] == null || row == 0)
+                    {
+                        <tr>
+                            <td colspan="6" align="center"><b>your Purchased cart is empty<a href="@Url.Action("Purchased","Purchased")">Clich here for buy now</a></b></td>
+                        </tr>
+                    }
+
+                    <tr style="background-color:brown; text-align:center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color:white">
+                        <td></td>
+                        <td></td>
+                        <td>@totalquantity</td>
+                        <td>@totalbill</td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <br />
+
+    <div class="">
+        <a href="@Url.Action("Purchased","Purchased")" id="btn" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Continue Shopping</a>
+
+    </div>
+    <br />
+    <!--================End Cart Area =================-->
+    <div class="container-fluid">
+        <div class="row" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; animation:ease">
+            <div class="col-sm-3" style="color:crimson">
+                <h3>Sub Total: </h3>
+                <h3>Discount:</h3>
+                <h3>Tax:</h3>
+                <h3>Shiping Shiping Cost: </h3>
+                <h3>Grand Total:</h3>
+            </div>
+            <div class="col-sm-3" style="color:brown">
+                <h3>@totalbill</h3>
+                <h3>Rs 0</h3>
+                <h3>Rs 0</h3>
+                <h3>0</h3>
+                <h3>@totalbill</h3>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a href="@Url.Action("buyer","Purchased")" id="btn" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Order Confirm</a>
+    </div>
+
+    <script>
+        window.onload = function () {
+            window.scrollBy(0, 200)
+        }
+    </script>
+</div>

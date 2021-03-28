@@ -1,0 +1,121 @@
+﻿@using LiveDinner.Models
+@{
+    ViewBag.Title = "Cutomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cutomer</h2>
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Customer</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/Content/loginform/css/style.css">
+
+</head>
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap py-5">
+                        <div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/bg.jpg);"></div>
+                        <h3 class="text-center mb-0">Welcome</h3>
+                        <p class="text-center">Sign Up by entering the information below</p>
+                        @using (Html.BeginForm("payno", "Home", FormMethod.Post))
+                        {
+                            if (Session["cud"] != null)
+                            {
+                                Account a = (Account)Session["cus"];
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
+                                    <input type="text" name="Order_Name" value="@a.Account_Name" class="form-control" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-home"></span></div>
+                                    <input type="text" name="Order_Address" value="@a.Account_Address" class="form-control" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-get-pocket"></span></div>
+                                    <input type="text" name="Order_Email" value="@a.Account_Email" class="form-control" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-phone"></span></div>
+                                    <input type="text" name="Order_Phone_Number" value="@a.Account_Phone_Number" class="form-control" placeholder="Name" required>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
+                                    <input type="text" name="Order_Name" class="form-control" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-home"></span></div>
+                                    <input type="text" name="Order_Address" class="form-control" placeholder="Address" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-get-pocket"></span></div>
+                                    <input type="text" name="Order_Email" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-phone"></span></div>
+                                    <input type="text" name="Order_Phone_Number" class="form-control" placeholder="Phone" required>
+                                </div>
+
+                            }
+                            <div>
+                                <h5 style="color:white; text-align:center">Paymint Mode</h5>
+                                <b>Cash on deliver:</b>  <input type="radio" value="Cash on deliver" name="Order_Status" checked="checked" />
+                                <b>Pay With Paypal:</b>  <input type="radio" value="Paid" name="Order_Status" />
+                            </div>
+                            <input type="submit" name="name" value="Submit" style="margin-left:35%" class="btn-outline-primary" />
+
+                        }
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Content/loginform/js/jquery.min.js"></script>
+    <script src="~/Content/loginform/js/popper.js"></script>
+    <script src="~/Content/loginform/js/bootstrap.min.js"></script>
+    <script src="~/Content/loginform/js/main.js"></script>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        window.scrollBy(0, 200);
+    }
+</script>
+

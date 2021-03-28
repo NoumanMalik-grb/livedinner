@@ -1,0 +1,48 @@
+﻿@model LiveDinner.Models.Classproducts
+@{
+    ViewBag.Title = "Purchased";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+<div class="container-fluid" style="background-color:lightblue">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <h6 id="cat" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 15px;color: white">All</h6>
+            @foreach (var item in Model.cat)
+            {
+                <a href="@Url.Action("Purchased","Purchased", new {id=item.Category_Id})" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:15px; color:white; text-decoration:none"><h4 id="cat">@item.Category_Name</h4></a>
+            }
+        </div>
+        <div class="col-sm-9">
+            @foreach (var item in Model.pro)
+            {
+                <div class="col-sm-4 col-md-4 col-lg-6 col-xl-6">
+                    <div class="gallery-single fix">
+                        <img src="@Url.Content(item.Product_Picture)" style="height: 150px; width:250px" class="img-fluid" alt="Image">
+
+                        <div class="why-text">
+
+                            <p id="p1" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:15px; color:brown">Sed id magna vitae eros sagittis euismod.</p>
+                            <h5 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:15px;color:brown"> Rs: @item.Product_Purchase_price</h5>
+
+                        </div>
+                        <h4 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:15px;color:brown">@item.Product_Name</h4>
+                        <a href="@Url.Action("AddtoCard","Purchased", new { id=item.Product_Id})">
+                            <h4 id="button">Add To Stock</h4>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveDinner", "LiveDinner.csproj", "{B1292FA1-DB5D-4D2D-A0D9-AFBA82D76A45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1292FA1-DB5D-4D2D-A0D9-AFBA82D76A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1292FA1-DB5D-4D2D-A0D9-AFBA82D76A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1292FA1-DB5D-4D2D-A0D9-AFBA82D76A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1292FA1-DB5D-4D2D-A0D9-AFBA82D76A45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D240FAE-3A09-4877-86ED-C3BEB4D4FAB7}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "buyer";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("buyno", "Purchased", FormMethod.Post))
+    {
+    <div style="background-color:cadetblue; width:50%; margin-left:26%; border:solid 2px; border-color:darkgoldenrod">
+        <h3 style="text-align:center; font-family:'Times New Roman', Times, serif;color:white">Seller Details</h3>
+        <div class="form-group">
+            <input type="text" name="Order_Name" class="form-control" placeholder="enter the name" required />
+        </div><br />
+        <div class="form-group">
+            <input type="text" name="Order_Address" class="form-control " placeholder="enter the address" required />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="text" name="Order_Email" class="form-control " placeholder="enter the email" required />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="text"  name="Order_Phone_Number" class="form-control" placeholder="enter the phone" required />
+        </div>
+        <br />
+
+        <input type="submit" name="name" value="Submit" class=" btn btn-primary" style="color:darkblue" />
+    </div>
+            }
+</div>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        window.scrollBy(0, 200);
+    }
+</script>

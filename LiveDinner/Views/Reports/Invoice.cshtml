@@ -1,0 +1,166 @@
+﻿@using LiveDinner.Models;
+@{
+    Model1 db = new Model1();
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+    int id = ViewBag.id;
+    String Purchase = ViewBag.Purchase;
+    int totalquantity = 0;
+    decimal totalamount = 0;
+    Model2 md = new Model2();
+    <!--start working for serial number-->
+    int no = 0;
+    <!--End working for serial number-->
+}
+<div id="PrintArea">
+    <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+        <table class="table table-bordered">
+            <tr>
+                <td width="33%"><b></b><img src="@Url.Content(md.Companies.Select(x=>x.Company_Logo).FirstOrDefault())" /></td>
+                <td width="33%"></td>
+                <td width="33%"><b>Company Email</b>@md.Companies.Select(a => a.Company_Email).FirstOrDefault()</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><b>Company Address</b>@md.Companies.Select(a => a.Company_Address).FirstOrDefault()</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><b>Company Contact</b>@md.Companies.Select(a => a.Company_Contact).FirstOrDefault()</td>
+            </tr>
+        </table>
+    </div>
+    <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+        <table class="table-active table-bordered  table-active  " style="width:100%">
+            <thead>
+                <tr>
+                    <td colspan="10" style="font-size:50px; text-align:center; background-color:darkred; color:white; font-family:'Times New Roman', Times, serif"><h4>Order Details</h4></td>
+                </tr>
+                <tr style="font-size:20px; font-family:'Times New Roman', Times, serif; color:white; background-color:darkred">
+                    <th>Sr #</th>
+                    <th>Order Id</th>
+                    <th> Name</th>
+                    <th> Address</th>
+                    <th> Email</th>
+                    <th> Phone Number</th>
+                    <th> Type</th>
+                    <th> Delivery Status</th>
+                    <th> Status</th>
+                    <th>Date Time</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in db.Orders.Where(x => x.Order_Id == id))
+            {
+                no++;
+                <tr style="background-color:cadetblue; color:white; text-align:center; font-size:20px">
+                    <td style="background-color:darkred">@no</td>
+                    <td>Order-@item.Order_Id</td>
+                    <td>@item.Order_Name</td>
+                    <td>@item.Order_Address</td>
+                    <td>@item.Order_Email</td>
+                    <td>@item.Order_Phone_Number</td>
+                    <td>@item.Order_Type</td>
+                    <td>@item.Order_Delivery_Status</td>
+                    <td>@item.Order_Status</td>
+                    <td>@DateTime.Parse(item.Order_Date_Time.ToString()).ToLongDateString()</td>
+                </tr>
+
+            }
+
+        </table>
+    </div>
+    <br />
+    <br />
+    <br /><br />
+    <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+        <table class="table-active table-bordered  table-active  " style="width:100%">
+            <thead>
+                <tr>
+                    <td colspan="10" style="font-size:50px; text-align:center; background-color:darkred; color:white; font-family:'Times New Roman', Times, serif"><h4>Product Details</h4></td>
+                </tr>
+                <tr style="font-size:20px; font-family:'Times New Roman', Times, serif; color:white; background-color:darkred">
+                    <th>Product Picture</th>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Product Quantity</th>
+                    <th>Product Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var od in db.Order_Details.Where(x => x.Order_Fid == id))
+                {
+                    <tr  style="background-color:cadetblue; color:white; text-align:center; font-size:20px">
+                        <td><img src="@Url.Content(od.Product.Product_Picture)" style="height:150px; width:200px" /></td>
+                        <td>@od.Product.Product_Name</td>
+                        <td>
+                            @if (od.Order.Order_Type == "purchase")
+                            {
+                                @od.OD_Purchase_Price
+                            }
+                            else
+                            {
+                                @od.OD_Sale_Price
+                            }
+                        </td>
+                        <td>@Math.Abs(Convert.ToInt32(od.OD_Quantity))</td>
+
+                        <td>
+                            @if (od.Order.Order_Type == "Purchase")
+                            {
+                                @(decimal.Parse(od.OD_Purchase_Price.ToString()) *Math.Abs( int.Parse(od.OD_Quantity.ToString())))
+                            }
+                            else
+                            {
+                                @(decimal.Parse(od.OD_Sale_Price.ToString()) * Math.Abs( int.Parse(od.OD_Quantity.ToString())))
+                            }
+
+                        </td>
+                    </tr>
+                    totalquantity += Math.Abs(int.Parse(od.OD_Quantity.ToString()));
+                    if (od.Order.Order_Type == "Purchase")
+                    {
+                        totalamount += (decimal.Parse(od.OD_Purchase_Price.ToString()) * Math.Abs(int.Parse(od.OD_Quantity.ToString())));
+                    }
+                    else
+                    {
+                        totalamount += (decimal.Parse(od.OD_Sale_Price.ToString()) * Math.Abs(int.Parse(od.OD_Quantity.ToString())));
+                    }
+
+                }
+                <tr style="background-color:darkred; color:white; font-family:'Times New Roman', Times, serif">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@totalquantity</td>
+                    <td>@totalamount</td>
+                </tr>
+
+        </table>
+    </div>
+    </div>
+    <input type="button" value="Print Invoice" onclick="return PrintFunction();" class="btn btn-danger btn-block" />
+
+    <script>
+        function PrintFunction() {
+            var print = document.getElementById('PrintArea');
+            var b1 = document.getElementById('btn1');
+            var b2 = document.getElementById('btn2');
+            var printWindow = window.open('', '', 'height=400, width=800');
+            printWindow.document.write('<html><head><title>DIV Contects</title>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(print.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            setTimeout(function () {
+                printWindow.print();
+            }, 500);
+
+            return false;
+        }
+    </script>
+
+
+

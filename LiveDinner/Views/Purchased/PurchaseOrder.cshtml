@@ -1,0 +1,115 @@
+﻿@using LiveDinner.Models
+
+@{
+    int row = 0;
+    int totalquantity = 0;
+    decimal totalbill = 0;
+
+    ViewBag.Title = "menucart";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+<table class="table table-bordered" style="width:50%; text-align:center; margin-left:25%; background-color:cadetblue; color:white; font-family:'Times New Roman', Times, serif; font-size:medium">
+   
+    <tr style="background-color:darkred">
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+    <tbody>
+        <tr>
+            @if (Session["menucart"] != null)
+            {
+                foreach (var item in (List<Product>)Session["menucart"])
+                {
+                <tr style="color:white">
+                    <td>
+
+                        <div class="#">
+                            <img src="@Url.Content(item.Product_Picture)" style="height:100px;width:100px" />
+                        </div>
+                        <div>
+                            <p>@item.Product_Name</p>
+                        </div>
+
+                    </td>
+                    <td>
+                        <h5>@item.Product_Purchase_price</h5>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <h5>@(decimal.Parse(item.Product_Purchase_price.ToString())*int.Parse(item.Product_Quantity.ToString()))</h5>
+                    </td>
+
+                </tr>
+                row++;
+                totalquantity += item.Product_Quantity;
+                totalbill += (decimal.Parse(item.Product_Purchase_price.ToString()) * int.Parse(item.Product_Quantity.ToString()));
+            }
+        }
+
+            <tr style="background-color:firebrick">
+                <td></td>
+                <td></td>
+                <td>@totalquantity</td>
+                <td>@totalbill</td>
+                
+            </tr>
+
+        </tbody>
+</table>
+
+<table class="table table-bordered" style="background-color:cadetblue; font-family:'Times New Roman', Times, serif;color:white">
+    <tr>
+        <td colspan="5" align="center" style="font-family:'Times New Roman', Times, serif; color:white; font-size:medium; background-color:darkred">Order Summmary</td>
+    </tr>
+    <tr>
+        <td>sub total:</td>
+        <td>@totalbill</td>
+        <td>Discount:</td>
+        <td>Rs 0</td>
+       
+    </tr>
+    <tr>
+        <td>Tax:</td>
+        <td>Rs: 0</td>
+        <td>Shiping Cost :</td>
+        <td>Rs: 0</td>
+    </tr>
+    <tr style="background-color:brown">
+        <td colspan="2">Grand Total:</td>
+        <td colspan="2">@totalbill</td>
+    </tr>
+
+</table>
+@if (Session["Order"]!=null)
+{
+    Order od = (Order)Session["Order"];
+<table class="table table-bordered" style="background-color:cadetblue; font-family:'Times New Roman', Times, serif;color:white">
+    <tr>
+        <td colspan="5" align="center" style="font-family:'Times New Roman', Times, serif; color:white; font-size:medium; background-color:darkred">Seller  Details</td>
+    </tr>
+    <tr>
+        <td>Order Name:</td>
+        <td>@od.Order_Name</td>
+        <td>Order Email:</td>
+        <td>@od.Order_Email</td>
+    </tr>
+    <tr>
+        <td>Order Address</td>
+        <td>@od.Order_Address</td>
+        <td>Order Status</td>
+        <td>@od.Order_Status</td>
+       
+    </tr>
+    <tr  style="background-color:brown">
+        <td colspan="2">Order Type</td>
+        <td colspan="2">@od.Order_Type</td>
+    </tr>
+</table>
+}
+
+
+

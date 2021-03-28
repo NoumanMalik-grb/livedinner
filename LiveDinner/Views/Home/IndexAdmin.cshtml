@@ -1,0 +1,57 @@
+﻿
+@using LiveDinner.Models
+
+@{
+    ViewBag.Title = "IndexAdmin";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+    Model1 db = new Model1();
+}
+<div class="row" style="background-color:aqua">
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-red set-icon">
+                <i class="fa fa-user"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.Accounts.Count() Admin</p>
+                <p class="text-muted">Account</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-green set-icon">
+                <i class="fa fa-bars"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.Products.Count() Product</p>
+                <p class="text-muted">For Sale</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-blue set-icon">
+                <i class="fa fa-money"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.Order_Details.Where(x=>x.Order.Order_Type=="Sale").Sum(x=>x.OD_Sale_Price*x.OD_Quantity*-1)</p>
+                <br />
+                <p class="text-muted">Online Earning</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-brown set-icon">
+                <i class="fa fa-rocket"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.Orders.Where(x=>x.Order_Type=="Sale").Count() Order</p>
+                <p class="text-muted">Sale Orders</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. ROW  -->
+<hr />

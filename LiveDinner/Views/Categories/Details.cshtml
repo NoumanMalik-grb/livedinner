@@ -1,0 +1,27 @@
+﻿@model LiveDinner.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+
+<div>
+    <dl class="dl-horizontal" style="color:seagreen; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category_Name)
+        </dd>
+
+    </dl>
+</div>
+
+<p style="margin-left:4%">
+    <a href="@Url.Action("Edit","Categories", new { id=Model.Category_Id})" class="btn btn-primary">Edit</a>|
+    <a href="@Url.Action("Index","Categories")" class="btn btn-success">Back</a>
+</p>
+

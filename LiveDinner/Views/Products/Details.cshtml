@@ -1,0 +1,67 @@
+﻿@model LiveDinner.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+
+<div>
+    
+    <dl class="dl-horizontal" style="color:green; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Picture)
+        </dt>
+
+        <dd>
+            <img style="height:100px; width:150px" src="@Url.Content(Model.Product_Picture)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Purchase_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Purchase_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Sale_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Sale_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Status)
+        </dd>
+
+    </dl>
+</div>
+<p style="margin-left:2%">
+    <a href="@Url.Action("Edit","Products", new { id=Model.Product_Id})" class="btn btn-primary">Edit</a>
+    <a href="@Url.Action("Index","Products")" class="btn btn-success">Back</a>
+</p>

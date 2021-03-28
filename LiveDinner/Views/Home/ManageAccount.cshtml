@@ -1,0 +1,59 @@
+﻿@model IEnumerable<LiveDinner.Models.Account> 
+@using LiveDinner.Models;
+@{
+    ViewBag.Title = "ManageAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ManageAccount</h2>
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>ManageAccount</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<br />  
+<div class="container-fluid">
+    <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-md table-responsive-sm table-responsive-xl">
+        <table class="table table-active table-bordered table-condensed table-hover table-info" style="text-align:center; background-color:MenuText; color:white">
+            <thead>
+                <tr>
+                    <th>Account Name</th>
+                    <th>Account Address</th>
+                    <th>Account Phone_Number</th>
+                    <th>Account Email</th>
+                    <th>Account Password</th>
+                    <th>Account Type</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (Session["cus"] != null)
+                    {
+                        Account a = (Account)Session["cus"];
+                        if (a.Account_Id == item.Account_Id)
+                        {
+                            <tr>
+                                <td>@item.Account_Name</td>
+                                <td>@item.Account_Address</td>
+                                <td>@item.Account_Phone_Number</td>
+                                <td>@item.Account_Email</td>
+                                <td>@item.Account_Password</td>
+                                <td>@item.Account_Type</td>
+                                <td> 
+                                <a href="@Url.Action("EditCustomer","Home" , new { id=item.Account_Id})" class="btn-sm btn-outline-primary fa fa-edit"></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+       
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿@model LiveDinner.Models.Account
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+
+<marquee style="font-size:large; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; margin-left:20%; margin-right:20%; color:blue">Are you sure you want to delete this?</marquee>
+<div>
+   
+    <dl class="dl-horizontal" style="color:green; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Phone_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Phone_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Type)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a href="@Url.Action("Index","Accounts")" class="btn btn-success">Back</a>
+        </div>
+    }
+</div>

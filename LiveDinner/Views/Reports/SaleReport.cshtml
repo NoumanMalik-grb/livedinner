@@ -1,0 +1,92 @@
+﻿@model IEnumerable<LiveDinner.Models.Order>
+@{
+    ViewBag.Title = "SaleReport";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+    int no = 0;
+}
+<div id="PrintArea">
+    <h2 style="text-align:center;font-family:'Times New Roman', Times, serif;">SaleReport</h2>
+    <!--Start working For Filter-->
+    <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+        <table class="table table-bordered ">
+            @Html.BeginForm("SaleReport", "Reports", FormMethod.Post){
+
+            <tr>
+                <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Date From:</td>
+                <td><input type="datetime-local" value="@ViewBag.DateFrom" name="DateFrom" class="form-control" /></td>
+                <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Date To:</td>
+                <td><input type="datetime-local" value="@ViewBag.DateTo" name="DateTo" class="form-control" /></td>
+                <td><input type="submit" id="btn1" value="Genrate report" class="btn btn-danger btn-block" /></td>
+            </tr>
+            <tr>
+                <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Category:</td>
+                <td>@Html.DropDownList("Category", ViewBag.Category as SelectList, "Select category", htmlAttributes: new { @class = "form-control" })</td>
+                <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Product:</td>
+                <td>@Html.DropDownList("Product", ViewBag.Product as SelectList, "Select Product", htmlAttributes: new { @class = "form-control" })</td>
+                <td><input type="button" id="btn2" onclick="return PrintFunction();" value="Print Report" class="btn btn-danger btn-block" /></td>
+            </tr>
+            }
+        </table>
+        </div>
+        <!--End working For Filter-->
+        <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+            <table class="table table-bordered"style="width:100%">
+                <thead>
+                    <tr>
+                        <td colspan="9" style="font-size:50px; text-align:center; background-color:darkred; color:white; font-family:'Times New Roman', Times, serif"><h4>SaleReport</h4></td>
+                    </tr>
+                    <tr style="font-size:20px; font-family:'Times New Roman', Times, serif; color:white; background-color:darkred">
+                        <th>Sr #</th>
+                        <th>Order Id</th>                       
+                        <th> Type</th>
+                        <th> Delivery Status</th>
+                        <th> Status</th>
+                        <th>Date Time</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        no++;
+
+                        <tr style="background-color:cadetblue; color:white; text-align:center; font-size:20px">
+                            <td style="background-color:darkred">@no</td>
+                            <td>@item.Order_Id</td>                            
+                            <td>@item.Order_Type</td>
+                            <td>@item.Order_Delivery_Status</td>
+                            <td>@item.Order_Status</td>
+                            <td>@DateTime.Parse(item.Order_Date_Time.ToString()).ToLongDateString()</td>
+                            <td><a href="@Url.Action("Invoice","Reports" , new { id=item.Order_Id})" class="btn btn-success">View Invoice</a></td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+        
+        <script>
+            function PrintFunction() {
+                var print = document.getElementById('PrintArea');
+                var b1 = document.getElementById('btn1');
+                var b2 = document.getElementById('btn2');
+                b1.style.display = 'none';
+                b2.style.display = 'none';
+                var printWindow = window.open('', '', 'height=400, width=800');
+                printWindow.document.write('<html><head><title>DIV Contects</title>');
+                printWindow.document.write('</head><body>');
+                printWindow.document.write(print.innerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                setTimeout(function () {
+                    printWindow.print();
+                }, 500);
+                b1.style.display = 'block';
+                b2.style.display = 'block';
+                b3.style.display = 'block';
+                return false;
+            }
+        </script>
+

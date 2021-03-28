@@ -1,0 +1,97 @@
+﻿@model IEnumerable<LiveDinner.Models.Product>
+@{
+    ViewBag.Title = "StockReport";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+    <!--start working for serial number-->
+    int no = 0;
+    <!--End working for serial number-->
+}
+<div id="PrintArea">
+    
+        <!--Start working For Filter-->
+        <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+            <table class="table table-bordered">
+                @Html.BeginForm("StockReport", "Reports", FormMethod.Post){
+
+                <tr>
+                    <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Date From:</td>
+                    <td><input type="datetime-local" readonly value="@ViewBag.DateFrom" name="DateFrom" class="form-control" /></td>
+                    <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Date To:</td>
+                    <td><input type="datetime-local" value="@ViewBag.DateTo" name="DateTo" class="form-control" /></td>
+                    <td><input id="btn1" type="submit" value="Genrate report" class="btn btn-danger btn-block" /></td>
+                </tr>
+                <tr>
+                    <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Category:</td>
+                    <td>@Html.DropDownList("Category", ViewBag.Category as SelectList, "Select category", htmlAttributes: new { @class = "form-control" })</td>
+                    <td style="font-family:'Times New Roman', Times, serif;font-size:20px; color:white;background-color:darkred" class="btn btn-block">Product:</td>
+                    <td>@Html.DropDownList("Product", ViewBag.Product as SelectList, "Select Product", htmlAttributes: new { @class = "form-control" })</td>
+                    <td><input type="button" id="btn2" onclick="return PrintFunction()" value="Print Report" class="btn btn-danger btn-block" /></td>
+                </tr>
+                }
+            </table>
+            <!--End working For Filter-->
+        </div>
+        <br />
+        <div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+            <table class="table-active table-bordered  table-active  "style="width:100%">
+                <thead>
+                    <tr>
+                        <td colspan="10" style="font-size:50px; text-align:center; background-color:darkred; color:white; font-family:'Times New Roman', Times, serif"><h4>StockReport</h4></td>
+                    </tr>
+                    
+                    <tr style="font-size:20px; font-family:'Times New Roman', Times, serif; color:white; background-color:darkred">
+                        <th>Sr #</th>
+                        <th>Product Picture</th>
+                        <th>Product Name </th>
+                        <th>Product Descrition</th>
+                        <th>Purchase Price</th>
+                        <th>Sale Price</th>
+                        <th>Avail Stock</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        no++;
+                        <tr style="background-color:cadetblue; color:white; text-align:center; font-size:20px" >
+                            <td style="background-color:darkred">@no</td>
+                            <td><img src="@Url.Content(item.Product_Picture)" style="height:100px ;width:100px" /></td>
+                            <td>@item.Product_Name</td>
+                            <td>@item.Product_Description</td>
+                            <td>@item.Product_Sale_Price</td>
+                            <td>@item.Product_Purchase_price</td>
+                            <td>@item.Order_Details.Where(x => x.Order.Order_Date_Time <= Convert.ToDateTime(ViewBag.DateTo)).Sum(x => x.OD_Quantity)</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            </div>
+       
+    </div>
+<script>
+    function PrintFunction() {
+        var print = document.getElementById('PrintArea');
+        var b1 = document.getElementById('btn1');
+        var b2 = document.getElementById('btn2');
+        b1.style.display = 'none';
+        b2.style.display = 'none';
+        var printWindow = window.open('', '', 'height=400, width=800');
+        printWindow.document.write('<html><head><title>DIV Contects</title>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(print.innerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        setTimeout(function () {
+            printWindow.print();
+        }, 500);
+        b1.style.display = 'block';
+        b2.style.display = 'block';
+        return false;
+    }
+</script>
+
+
+

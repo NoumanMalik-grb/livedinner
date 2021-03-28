@@ -1,0 +1,82 @@
+﻿@model IEnumerable<LiveDinner.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+@using (Html.BeginForm("Index", "Products", FormMethod.Post))
+{
+    <input type="radio" name="se" value="price" /><label>Search by Price</label>
+    <input type="radio" name="se" value="name" /><label>Search by Name</label>
+    <input type="radio"  name="se" value="gender" /><label>Search by Gender</label>
+    <input type="text" name="s" />
+    <input type="submit" value="Search" />
+}
+
+
+
+<p>
+    <a href="@Url.Action("Create","Products")" class="btn btn-primary">Create</a>
+</p>
+
+<div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+    <table class="table table-sm-12 table-md-12 table-lg-12 table-xl-12 table-bordered table-active" style="text-align:center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color:cadetblue">
+        <tr style="background-color:crimson; color:white">
+
+
+            <th>
+                Product Name
+            </th>
+            <th style="width:5%">
+                Product Picture
+            </th>
+            <th>
+                Purchase price
+            </th>
+            <th>
+                Sale_Price
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr style="color:forestgreen">
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product_Name)
+                </td>
+                <td>
+                    <img style="height:100px; width:150px" src="@Url.Content(item.Product_Picture)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product_Purchase_price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product_Sale_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product_Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product_Status)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Products", new {id=item.Product_Id})" class="fa fa-edit" style="color:blue"></a>
+                    <a href="@Url.Action("Details","Products", new {id=item.Product_Id})" class="fa fa-eye" style="color:forestgreen"></a>
+                    <a href="@Url.Action("delete","Products", new {id=item.Product_Id})" class="fa fa-trash-o" style="color:red"></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

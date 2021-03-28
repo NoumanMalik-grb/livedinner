@@ -1,0 +1,76 @@
+﻿@model IEnumerable<LiveDinner.Models.Account>
+@using LiveDinner.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+
+<p>
+    <a href="@Url.Action("Create","Accounts")" class="btn btn-success">Create</a>
+</p>
+<div class="table table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+    <table class="table table-sm-12 table-md-12 table-lg-12 table-xl-12 table-bordered table-active" style="text-align:center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color:cadetblue">
+        <tr style="background-color:crimson; color:white">
+            <th>
+                Account Name
+            </th>
+            <th>
+                Account Address
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Account Email
+            </th>
+            <th>
+                Account Password
+            </th>
+            <th>
+                Account Type
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            if (Session["Admin"] != null)
+            {
+                Account account = (Account)Session["Admin"];
+                if (account.Account_Id == item.Account_Id)
+                {
+                    <tr style="color:forestgreen">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account_Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account_Phone_Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account_Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account_Password)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account_Type)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit","Accounts", new {id=item.Account_Id })" class="fa fa-edit" style="color:blue"></a>
+                            <a href="@Url.Action("Details","Accounts", new {id=item.Account_Id })" class="fa fa-eye" style="color:forestgreen"></a>
+                            <a href="@Url.Action("delete","Accounts", new {id=item.Account_Id })" class="fa fa-trash-o" style="color:red"></a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+
+    </table>
+</div>

@@ -1,0 +1,91 @@
+﻿@model LiveDinner.Models.Account
+
+@{
+    ViewBag.Title = "EditCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>ManageAccount</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<br />  
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4 style="text-align:center">Account</h4>
+           
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Account_Id)
+
+            <div class="form-group">
+                <h3 class="offset-4">Account Name</h3>
+                <div class="col-md-4 offset-4">
+                    @Html.EditorFor(model => model.Account_Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Account_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3 class="offset-4">Account Address</h3>
+                <div class="col-md-4 offset-4">
+                    @Html.EditorFor(model => model.Account_Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Account_Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3 class="offset-4">Phone Number</h3>
+                <div class="col-md-4 offset-4">
+                    @Html.EditorFor(model => model.Account_Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Account_Phone_Number, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3 class="offset-4">Account Email</h3>
+                <div class="col-md-4 offset-4">
+                    @Html.EditorFor(model => model.Account_Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Account_Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3 class="offset-4">Account Password</h3>
+                <div class="col-md-4 offset-sm-4">
+                    @Html.EditorFor(model => model.Account_Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Account_Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3 class="offset-4">Account Type</h3>
+                <div class="col-md-4 offset-4">
+                    @Html.EditorFor(model => model.Account_Type, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Account_Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-4 ">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

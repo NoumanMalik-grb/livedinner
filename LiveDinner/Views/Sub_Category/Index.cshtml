@@ -1,0 +1,49 @@
+﻿@model IEnumerable<LiveDinner.Models.Sub_Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+    @using (Html.BeginForm("Index", "Sub_Category"))
+    {
+        <label>Search By Name</label>
+        <input type="text" name="s" />
+        <input type="submit" value="search" />
+    }
+
+    <a href="@Url.Action("Create","Sub_Category")" class="btn btn-primary">Create</a>
+    <br />
+    <br />
+    <div class=" table table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+        <table class="table table-sm-12 table-md-12 table-lg-12 table-xl-12 table-bordered table-active  table-hover" style="text-align:center; width:70%; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color:cadetblue">
+            <tr style="background-color:crimson; color:white">
+                <th>
+                    Category Name
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr style="color:forestgreen">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Category_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sub_Category_Name)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit","Sub_Category", new {id=item.Sub_Category_ID })" class="glyphicon glyphicon-edit btn-lg" style="color:blue"></a>
+                        <a href="@Url.Action("Details","Sub_Category", new {id=item.Sub_Category_ID})" class="glyphicon glyphicon-info-sign btn-lg" style="color:forestgreen"></a>
+                        <a href="@Url.Action("delete","Sub_Category", new {id=item.Sub_Category_ID})" class="fa fa-trash-o btn-lg" style="color:red"></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>

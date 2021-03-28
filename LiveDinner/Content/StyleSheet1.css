@@ -1,0 +1,49 @@
+﻿#cat {
+    width: 100px;
+    height: 50px;
+    background-color:gray;
+    transition: width 1s;
+}
+
+    #cat:hover {
+        width: 180px;
+    }
+#p1{
+    width: 200px;
+    height: 80px;
+    background-color: gray;
+    transition: width 1s;
+}
+
+    #p1:hover {
+        width: 300px;
+    }
+#button {
+    
+
+
+    background-color:brown;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+#btn{
+    background-color: brown;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+
+    
+
+

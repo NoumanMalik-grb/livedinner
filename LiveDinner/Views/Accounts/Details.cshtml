@@ -1,0 +1,65 @@
+﻿@model LiveDinner.Models.Account
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+<div>
+   
+    <dl class="dl-horizontal" style="color:green; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Phone_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Phone_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_Type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit","Accounts", new { id=Model.Account_Id})" class="btn btn-primary">Edit</a>|
+    <a href="@Url.Action("Index","Accounts")" class="btn btn-success">Back</a>
+</p>

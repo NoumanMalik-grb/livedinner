@@ -1,0 +1,58 @@
+﻿@model IEnumerable<LiveDinner.Models.Company>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Company_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company_Contact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company_Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company_Logo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company_Contact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company_Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company_Logo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Company_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Company_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Company_Id })
+        </td>
+    </tr>
+}
+
+</table>

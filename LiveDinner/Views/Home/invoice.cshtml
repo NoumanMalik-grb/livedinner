@@ -1,0 +1,182 @@
+﻿
+@using LiveDinner.Models;
+@{
+    Model1 db = new Model1();
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = ViewBag.id;
+    String Purchase = ViewBag.Purchase;
+    int totalquantity = 0;
+    decimal totalamount = 0;
+    Model2 md = new Model2();
+    <!--start working for serial number-->
+    int no = 0;
+    <!--End working for serial number-->
+}
+
+<div id="PrintArea">
+    <div class="all-page-title page-breadcrumb">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 style="text-align:center">Customer Invoice</h1>
+                </div>
+            </div>
+        </div>
+    </div><br />
+    <div class="container-fluid">
+        <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
+            <table width="100%">
+                <tr>
+                    <td width="33%"><b></b><img src="@Url.Content(md.Companies.Select(x=>x.Company_Logo).FirstOrDefault())" /></td>
+                    <td width="33%"></td>
+                    <td width="33%"><b>Company Email: </b>@md.Companies.Select(a => a.Company_Email).FirstOrDefault()</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>Company Address: </b>@md.Companies.Select(a => a.Company_Address).FirstOrDefault()</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>Company Contact: </b>@md.Companies.Select(a => a.Company_Contact).FirstOrDefault()</td>
+                </tr>
+            </table>
+
+            <h2 style="text-align:center">Order Invoice</h2>
+            <table class="table-active table-bordered pt-3 table-active table-hover table-responsive-lg col-lg-12">
+                <thead>
+                    <tr>
+                        <td colspan="12" style="font-size:large; text-align:center; background-color:crimson; color:white">Order Detail</td>
+                    </tr>
+                    <tr>
+                        <th>Sr #</th>
+                        <th>Order Id</th>
+                        <th> Name</th>
+                        <th> Address</th>
+                        <th> Email</th>
+                        <th> Phone Number</th>
+                        <th> Type</th>
+                        <th> Delivery Status</th>
+                        <th> Status</th>
+                        <th>Date Time</th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in db.Orders.Where(x => x.Order_Id == id))
+                {
+                    no++;
+                    <tr>
+                        <td>@no</td>
+                        <td>Order-@item.Order_Id</td>
+                        <td>@item.Order_Name</td>
+                        <td>@item.Order_Address</td>
+                        <td>@item.Order_Email</td>
+                        <td>@item.Order_Phone_Number</td>
+                        <td>@item.Order_Type</td>
+                        <td>@item.Order_Delivery_Status</td>
+                        <td>@item.Order_Status</td>
+                        <td>@DateTime.Parse(item.Order_Date_Time.ToString()).ToLongDateString()</td>
+                    </tr>
+
+                }
+
+            </table>
+
+            <br />
+            <br />
+            <br /><br />
+
+            <table class="table-active table-bordered pt-3 table-active table-hover table-responsive-lg col-lg-12">
+                <thead>
+                    <tr>
+                        <td colspan="5" style="font-size:large; text-align:center; background-color:crimson; color:white">Product Detail</td>
+                    </tr>
+                    <tr>
+                        <th>Product Picture</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Product Quantity</th>
+                        <th>Product Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var od in db.Order_Details.Where(x => x.Order_Fid == id))
+                    {
+                        <tr>
+                            <td><img src="@Url.Content(od.Product.Product_Picture)" style="height:150px; width:200px" /></td>
+                            <td>@od.Product.Product_Name</td>
+                            <td>
+                                @if (od.Order.Order_Type == "purchase")
+                                {
+                                    @od.OD_Purchase_Price
+                                }
+                                else
+                                {
+                                    @od.OD_Sale_Price
+                                }
+                            </td>
+                            <td>@Math.Abs(Convert.ToInt32(od.OD_Quantity))</td>
+
+                            <td>
+                                @if (od.Order.Order_Type == "Purchase")
+                                {
+                                    @(decimal.Parse(od.OD_Purchase_Price.ToString()) *Math.Abs( int.Parse(od.OD_Quantity.ToString())))
+                                }
+                                else
+                                {
+                                    @(decimal.Parse(od.OD_Sale_Price.ToString()) * Math.Abs( int.Parse(od.OD_Quantity.ToString())))
+                                }
+
+                            </td>
+                        </tr>
+                        totalquantity += Math.Abs(int.Parse(od.OD_Quantity.ToString()));
+                        if (od.Order.Order_Type == "Purchase")
+                        {
+                            totalamount += (decimal.Parse(od.OD_Purchase_Price.ToString()) * Math.Abs(int.Parse(od.OD_Quantity.ToString())));
+                        }
+                        else
+                        {
+                            totalamount += (decimal.Parse(od.OD_Sale_Price.ToString()) * Math.Abs(int.Parse(od.OD_Quantity.ToString())));
+                        }
+
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@totalquantity</td>
+                        <td>@totalamount</td>
+                    </tr>
+
+            </table>
+        </div>
+
+
+        <input type="button" value="Print Invoice" onclick="return PrintFunction();" class="btn btn-danger btn-block" />
+    </div>
+</div>
+<script>
+    function PrintFunction() {
+        var print = document.getElementById('PrintArea');
+        var b1 = document.getElementById('btn1');
+        var b2 = document.getElementById('btn2');
+        var printWindow = window.open('', '', 'height=400, width=800');
+        printWindow.document.write('<html><head><title>DIV Contects</title>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(print.innerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        setTimeout(function () {
+            printWindow.print();
+        }, 500);
+
+        return false;
+    }
+</script>
+
+
+
+
+
